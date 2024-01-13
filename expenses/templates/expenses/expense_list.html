@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load param_replace %}
 {% block content %}
 
 <a href="{% url 'expenses:expense-create' %}">add</a>
@@ -14,10 +14,15 @@
     <thead>
     <tr>
         <th>no.</th>
-        <th>category</th>
+        <th><a href="?{% param_replace sort='category' %}">&uarr;</a>|<a
+                href="?{% param_replace sort='-category' %}">&darr;</a>
+            category
+        </th>
         <th>name</th>
         <th>amount</th>
-        <th>date</th>
+        <th><a href="?{% param_replace sort='date' %}">&uarr;</a>|<a
+                href="?{% param_replace sort='-date' %}">&darr;</a> date
+        </th>
         <th>actions</th>
     </tr>
     </thead>

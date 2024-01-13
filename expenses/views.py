@@ -50,6 +50,9 @@ class ExpenseListView(ListView):
             if categories:
                 queryset = queryset.filter(category__in=categories)
 
+        sort = self.request.GET.get('sort')
+        if sort:
+            queryset = queryset.order_by(sort)
 
         return super().get_context_data(
             form=form,
