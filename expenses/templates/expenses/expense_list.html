@@ -26,8 +26,6 @@
         <th>actions</th>
     </tr>
     </thead>
-    {{object_list}}
-    {{object_list.test_number}}
     <tbody>
 
     {% for obj in object_list %}
@@ -49,9 +47,6 @@
     {% endfor %}
     </tbody>
     <tfoot>
-    <tr>
-        <td colspan="6" style="padding: 5px; background: #222;"></td>
-    </tr>
     <tr>
         <td>Total amount:</td>
         <td colspan="5">{{ total_amount|floatformat:2 }}</td>
