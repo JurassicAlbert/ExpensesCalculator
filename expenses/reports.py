@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from django.db.models import Sum, Value
+from django.db.models import Sum, Value, Count
 from django.db.models.functions import Coalesce
 from django.db.models.functions import ExtractYear, ExtractMonth
 
@@ -21,3 +21,7 @@ def summary_per_year_month(queryset):
         month=ExtractMonth('date'),
         total_amount=Sum('amount')
     ).order_by('year', 'month').values_list('year', 'month', 'total_amount')
+
+
+def expenses_per_category(queryset):
+    return queryset.annotate(num_expenses=Count('expense'))

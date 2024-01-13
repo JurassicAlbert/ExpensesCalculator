@@ -2,7 +2,9 @@ from django.db.models import Sum
 from .forms import ExpenseSearchForm
 from .models import Expense, Category
 from django.views.generic.list import ListView
-from .reports import summary_per_category, summary_per_year_month
+from .reports import summary_per_category, summary_per_year_month, \
+    expenses_per_category
+
 
 class ExpenseListView(ListView):
     """
@@ -66,13 +68,16 @@ class ExpenseListView(ListView):
 
 
 class CategoryListView(ListView):
-    """
-    View displaying a list of categories.
-
-    Attributes:
-        model (Category): The model for the view.
-        paginate_by (int): Number of items per page.
-    """
-
     model = Category
     paginate_by = 5
+    template_name = 'category_list.html'  # Podaj nazwę swojego szablonu
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        queryset = object_list if object_list is not None else self.object_list
+
+        queryset = expenses_per_category(queryset)
+
+        return super().get_context_data(
+            object_list=queryset,
+            **kwargs
+        )
