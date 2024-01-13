@@ -1,7 +1,7 @@
+from django.db.models import Sum
 from .forms import ExpenseSearchForm
 from .models import Expense, Category
 from .reports import summary_per_category
-from django.core.paginator import Paginator
 from django.views.generic.list import ListView
 
 
@@ -54,9 +54,13 @@ class ExpenseListView(ListView):
         if sort:
             queryset = queryset.order_by(sort)
 
+        total_amount = queryset.aggregate(total_amount=Sum('amount'))[
+            'total_amount']
+
         return super().get_context_data(
             form=form,
             object_list=queryset,
+            total_amount=total_amount,
             summary_per_category=summary_per_category(queryset),
             **kwargs)
 

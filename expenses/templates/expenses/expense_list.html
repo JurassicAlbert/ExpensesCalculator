@@ -27,6 +27,7 @@
     </tr>
     </thead>
     {{object_list}}
+    {{object_list.test_number}}
     <tbody>
 
     {% for obj in object_list %}
@@ -47,6 +48,15 @@
     </tr>
     {% endfor %}
     </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="6" style="padding: 5px; background: #222;"></td>
+    </tr>
+    <tr>
+        <td>Total amount:</td>
+        <td colspan="5">{{ total_amount|floatformat:2 }}</td>
+    </tr>
+    </tfoot>
 </table>
 
 {% include "_pagination.html" %}
